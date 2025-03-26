@@ -1,0 +1,8 @@
+CREATE DATABASE metastore;
+CREATE USER 'hive'@'localhost' IDENTIFIED BY 'hive';
+CREATE USER 'hive'@'%' IDENTIFIED BY 'hive';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'hive'@'localhost';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'hive'@'%';
+GRANT ALL PRIVILEGES ON metastore.* TO 'hive'@'localhost';
+GRANT ALL PRIVILEGES ON metastore.* TO 'hive'@'%';
+FLUSH PRIVILEGES;

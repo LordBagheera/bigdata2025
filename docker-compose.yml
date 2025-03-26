@@ -122,6 +122,26 @@ services:
         condition: on-failure
       labels:
         traefik.docker.network: bigdata_net
+
+  hiveserver:
+    image: bdsa2025/hadoop-hive:3.4.1-jdk17-hive4.0.1
+    networks:
+      - bigdata_net
+    #volumes:
+    #  - /volumes/metastoredb:/var/lib/mysql
+    #  - /hive-log4j2.properties:/etc/hive/hive-log4j2.properties
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870 resourcemanager:8088"
+    env_file:
+      - hadoop.env
+    ports:
+      - 10000:10000
+      - 10002:10002
+      - 9803:9803
+      - 8080:8080
+      - 3306:3306
+
+    
 networks:
   bigdata_net: 
     driver: bridge
