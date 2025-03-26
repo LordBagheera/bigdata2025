@@ -40,6 +40,7 @@ RUN sed -i 's/127.0.0.1/0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf; \
     mysql -u root < hive-4.0.0-schema.sql
 
 COPY hive-site.xml /etc/hive/
+COPY beeline-hs2-connection.xml /etc/hive/
 COPY startup.sh /usr/local/bin/
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh ; chmod +x /usr/local/bin/entrypoint.sh
