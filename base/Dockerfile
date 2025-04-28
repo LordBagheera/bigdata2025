@@ -1,4 +1,4 @@
-FROM debian:12.9
+FROM debian:12.10
 
 LABEL authors="Erik Hurtado <erik.hurtado@inacapmail.cl>"
 LABEL title="BDSA - Big Data South America - Inspired on BDE2020"
@@ -12,6 +12,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
       libsnappy-dev \
       python3 \
       python3-pip \
+      vim \
     && rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
