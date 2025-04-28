@@ -1,6 +1,6 @@
 services:
   namenode:
-    image:  bdsa2025/hadoop-namenode:3.4.1-jdk17
+    image:  bdsa2025/hadoop-namenode:3.4.1_java-17
     networks:
       - bigdata_net
     volumes:
@@ -23,7 +23,7 @@ services:
         traefik.docker.network: bigdata_net
 
   datanode:
-    image:  bdsa2025/hadoop-datanode:3.4.1-jdk17
+    image:  bdsa2025/hadoop-datanode:3.4.1_java-17
     networks:
       - bigdata_net
     volumes:
@@ -41,68 +41,68 @@ services:
       labels:
         traefik.docker.network: bigdata_net
 
-#  resourcemanager:
-#    image:  bdsa2025/hadoop-resourcemanager:3.4.1-jdk17 
-#    networks:
-#      - bigdata_net
-#    environment:
-#      SERVICE_PRECONDITION: "namenode:9870 datanode:9864"
-#    env_file:
-#      - ./hadoop.env
-#    ports:
-#      - 8088:8088
-#    deploy:
-#      mode: replicated
-#      replicas: 1
-#      restart_policy:
-#        condition: on-failure
-#      placement:
-#        constraints:
-#          - node.hostname == bde2025_resourcemanager
-#      labels:
-#        traefik.docker.network: bigdata_net
-#    healthcheck:
-#      disable: true
-#
-#  nodemanager:
-#    image: bdsa2025/hadoop-nodemanager:3.4.1-jdk17
-#    networks:
-#      - bigdata_net
-#    environment:
-#      SERVICE_PRECONDITION: "resourcemanager:8088"
-#    env_file:
-#      - ./hadoop.env
-#    ports:
-#      - 8042:8042
-#    deploy:
-#      mode: replicated
-#      replicas: 1
-#      restart_policy:
-#        condition: on-failure
-#      labels:
-#        traefik.docker.network: bigdata_net
-#  
-#  historyserver:
-#    image: bdsa2025/hadoop-historyserver:3.4.1-jdk17
-#    networks:
-#      - bigdata_net
-#    volumes:
-#      - ./volumes/yarn/timeline:/hadoop/yarn/timeline
-#    environment:
-#      SERVICE_PRECONDITION: "namenode:9870 resourcemanager:8088"
-#    env_file:
-#      - ./hadoop.env
-#    ports:
-#      - 8188:8188
-#    deploy:
-#      mode: replicated
-#      replicas: 1
-#      placement:
-#        constraints:
-#          - node.hostname == bde2025_historyserver
-#      labels:
-#        traefik.docker.network: bigdata_net
-#
+  resourcemanager:
+    image:  bdsa2025/resourcemanager:3.4.1_java-17_3.5.5_4.0.1
+    networks:
+      - bigdata_net
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870 datanode:9864"
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 8088:8088
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.hostname == bde2025_resourcemanager
+      labels:
+        traefik.docker.network: bigdata_net
+    healthcheck:
+      disable: true
+
+  nodemanager:
+    image: bdsa2025/nodemanager:3.4.1_java-17_3.5.5_4.0.1
+    networks:
+      - bigdata_net
+    environment:
+      SERVICE_PRECONDITION: "resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 8042:8042
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.docker.network: bigdata_net
+  
+  historyserver:
+    image: bdsa2025/historyserver:3.4.1_java-17
+    networks:
+      - bigdata_net
+    volumes:
+      - ./volumes/yarn/timeline:/hadoop/yarn/timeline
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 8188:8188
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == bde2025_historyserver
+      labels:
+        traefik.docker.network: bigdata_net
+
 #  edge-spark:
 #    image:  bdsa2025/hadoop-edge-spark:3.4.1-jdk17-hive4.0.1
 #    networks:

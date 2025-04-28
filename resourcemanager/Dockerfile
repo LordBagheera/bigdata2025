@@ -1,4 +1,4 @@
-FROM bdsa2025/hadoop-base:3.4.1-jdk17
+FROM bdsa2025/hadoop-spark-hive:3.4.1_java-17_3.5.5_4.0.1
 
 LABEL authors="Erik Hurtado <erik.hurtado@inacapmail.cl>"
 LABEL title="BDSA - Big Data South America - Inspired on BDE2020"
