@@ -1,4 +1,4 @@
-FROM bdsa2025/hadoop-base:3.4.1-jdk17
+FROM bdsa2025/hadoop-base:3.4.1_java-17
 
 LABEL authors="Erik Hurtado <erik.hurtado@inacapmail.cl>"
 LABEL title="BDSA - Big Data South America - Inspired on BDE2020"
@@ -16,7 +16,7 @@ RUN set -x \
 RUN ln -s /opt/apache-hive-$HIVE_VERSION-bin/conf /etc/hive
 
 ENV HIVE_HOME=/opt/apache-hive-$HIVE_VERSION-bin
-ENV HIVE_CONF_DIR=/etc/hive
+ENV HIVE_CONF_DIR=/etc/hive/
 ENV PATH $HIVE_HOME/bin:$PATH
 
 COPY create-user.sql /
@@ -34,7 +34,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
 
 
 RUN sed -i 's/127.0.0.1/0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf; \
-    sed -i 's/INFO/DEBUG/' $HIVE_CONF_DIR/hive-log4j2.properties; \
+    ##sed -i 's/INFO/DEBUG/' $HIVE_CONF_DIR/hive-log4j2.properties; \
     /etc/init.d/mariadb start; \
     mysql -u root < create-user.sql; \
     mysql -u root < hive-4.0.0-schema.sql

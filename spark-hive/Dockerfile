@@ -1,23 +1,28 @@
-FROM bdsa2025/hadoop-base:3.4.1_java-17
+FROM bdsa2025/bdsa2025-base:3.4.1
 
 LABEL authors="Erik Hurtado <erik.hurtado@inacapmail.cl>"
 LABEL title="BDSA - Big Data South America - Inspired on BDE2020"
-LABEL version="0.1"
 
-ENV BASE_URL=https://downloads.apache.org/spark/
-ENV SPARK_VERSION=3.5.5
-
-RUN set -x \
-    && curl -fSL "$BASE_URL/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz" -o /tmp/spark.tgz \
-    && tar -xvf /tmp/spark.tgz -C /opt/ \
-    && rm -rf /tmp/spark.tgz
-
+ENV BASE_URL=https://downloads.apache.org/spark
+ENV SPARK_VERSION=3.5.6
 ENV HIVE_VERSION=4.0.1
 ENV HIVE_URL https://downloads.apache.org/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
 ENV HIVE_HOME=/opt/apache-hive-$HIVE_VERSION-bin
 ENV HIVE_CONF_DIR=/etc/hive
 ENV PATH $HIVE_HOME/bin:$PATH
+ENV HIVE_CONF_DIR=/etc/hive
+ENV SBT_HOME=/opt/sbt
+ENV PYTHONHASHSEED=1
+ENV SPARK_HOME=/opt/spark
+ENV SPARK_CONF_DIR=$HADOOP_CONF_DIR
+ENV PATH=$HADOOP_HOME/bin:$SPARK_HOME/bin:$SBT_HOME/bin:$PATH
+
 RUN set -x \
+    && curl -fSL "$BASE_URL/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz" -o /tmp/spark.tgz \
+    && tar -xvf /tmp/spark.tgz -C /opt/ \
+    && rm -rf /tmp/spark.tgz \
+    && ln -s /opt/spark-$SPARK_VERSION-bin-without-hadoop /opt/spark \
+    && set -x \
     && curl -fSL "$HIVE_URL" -o /tmp/hive.tar.gz \
     && tar -xvf /tmp/hive.tar.gz -C /opt/ \
     && mkdir /var/log/hive \
@@ -25,20 +30,11 @@ RUN set -x \
     && ln -s /opt/apache-hive-$HIVE_VERSION-bin/conf /etc/hive \
     && cp $HIVE_CONF_DIR/hive-log4j2.properties.template $HIVE_CONF_DIR/hive-log4j2.properties 
 
-RUN export SPARK_DIST_CLASSPATH=$(hadoop classpath)
-
-
-ENV HIVE_CONF_DIR=/etc/hive
-ENV SBT_HOME=/opt/sbt
-ENV PYTHONHASHSEED=1
-ENV SPARK_HOME=/opt/spark-$SPARK_VERSION-bin-without-hadoop
-ENV PATH=$HADOOP_HOME/bin:$SPARK_HOME/bin:$SBT_HOME/bin:$PATH
+# RUN export SPARK_DIST_CLASSPATH=$(hadoop classpath)
 
 COPY spark-defaults.conf $HADOOP_CONF_DIR
 COPY beeline-hs2-connection.xml /etc/hive/
 COPY entrypoint.sh /usr/local/bin/
-ENV SPARK_CONF_DIR=$HADOOP_CONF_DIR
-
 
 RUN chmod a+x /usr/local/bin/entrypoint.sh
 
