@@ -31,7 +31,7 @@ RUN set -x \
     && gpg --verify /tmp/hadoop.tar.gz.asc \
     && tar -xvf /tmp/hadoop.tar.gz -C /opt/ \
     && rm /tmp/hadoop.tar.gz* \
-    &&ln -s /opt/hadoop-$HADOOP_VERSION/etc/hadoop /etc/hadoop \
+    && ln -s /opt/hadoop-$HADOOP_VERSION/etc/hadoop /etc/hadoop \
     && mkdir /opt/hadoop-$HADOOP_VERSION/logs \
     && mkdir /hadoop-data
 

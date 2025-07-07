@@ -20,3 +20,5 @@ podman build --format docker -t $StackName-nodemanager:$tag .\nodemanager\
 podman build --format docker -t $StackName-historyserver:$tag .\historyserver\
 #build the edge-spark image
 podman build --format docker -t $StackName-edge-spark:$tag .\edge-spark\
+#build the hive server image
+podman build --format docker -t $StackName-hive:$tag .\hive\
