@@ -64,7 +64,7 @@ services:
     healthcheck:
       disable: true
 
-  nodemanager:
+  nodemanager-1:
     image: bdsa2025/bdsa2025-nodemanager:3.4.1
     networks:
       - bigdata_net
@@ -81,7 +81,42 @@ services:
         condition: on-failure
       labels:
         traefik.docker.network: bigdata_net
-  
+
+  nodemanager-2:
+    image: bdsa2025/bdsa2025-nodemanager:3.4.1
+    networks:
+      - bigdata_net
+    environment:
+      SERVICE_PRECONDITION: "resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 8043:8042
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.docker.network: bigdata_net
+
+  nodemanager-3:
+    image: bdsa2025/bdsa2025-nodemanager:3.4.1
+    networks:
+      - bigdata_net
+    environment:
+      SERVICE_PRECONDITION: "resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 8044:8042
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.docker.network: bigdata_net
   historyserver:
     image: bdsa2025/bdsa2025-historyserver:3.4.1
     networks:
