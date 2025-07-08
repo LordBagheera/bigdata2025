@@ -44,4 +44,8 @@ cp /opt/apache-hive-4.0.1-bin/lib/hive-*.jar $SPARK_HOME/jars/
 cp /opt/apache-hive-4.0.1-bin/lib/hive-storage-api-*.jar $SPARK_HOME/jars/
 cp /opt/apache-hive-4.0.1-bin/lib/datanucleus-*.jar $SPARK_HOME/jars/
 
+grep -Fxq "host    all       all       0.0.0.0/0         md5" /etc/postgresql/15/main/pg_hba.conf || echo "host    all       all       0.0.0.0/0         md5" | sudo tee -a /etc/postgresql/15/main/pg_hba.conf > /dev/null
+
+/etc/postgresql/15/main/pg_hba.conf
+postgresql-9.4.1208.jre7.jar
 */
