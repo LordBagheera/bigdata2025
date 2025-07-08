@@ -1,5 +1,5 @@
 # build-base.ps1
-
+$ErrorActionPreference = "Stop"
 # Set image name and tag
 $StackName = "bdsa2025/bdsa2025"
 $tag = "3.4.1"

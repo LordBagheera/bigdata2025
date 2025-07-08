@@ -12,7 +12,6 @@ ENV TZ America/Santiago
 ENV ROOT_PASSWORD defaults
 ENV GLOBAL_ENV_FILE /etc/profile.d/hadoop_env.sh
 COPY startup.sh /usr/local/bin/
-COPY entrypoint.sh /usr/local/bin/
 
 RUN set -x \
     && curl -fSL "$SBT_URL" -o /tmp/sbt.tgz \
@@ -31,7 +30,7 @@ RUN set -x \
     sed -i 's/^#PermitTTY no/PermitTTY yes/' /etc/ssh/sshd_config \
     && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo "root:$ROOT_PASSWORD" | chpasswd \
-    && export SPARK_DIST_CLASSPATH=$(hadoop classpath) \
+    #&& export SPARK_DIST_CLASSPATH=$(hadoop classpath) \
     && chmod +x /usr/local/bin/startup.sh /usr/local/bin/entrypoint.sh ; touch $GLOBAL_ENV_FILE
 
 EXPOSE 2222

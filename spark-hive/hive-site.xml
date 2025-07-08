@@ -14,13 +14,5 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
-HIVE_SITE_CONF_beeline_hs2_connection_user=root
-HIVE_SITE_CONF_beeline_hs2_connection_password=root
-HIVE_SITE_CONF_beeline_hs2_connection_hosts=hiveserver:10000
--->
-<configuration>
-<property><name>beeline.hs2.connection.user</name><value>root</value></property>
-<property><name>beeline.hs2.connection.password</name><value>root</value></property>
-<property><name>beeline.hs2.connection.hosts</name><value>hiveserver:10000</value></property>
+--><configuration>
 </configuration>

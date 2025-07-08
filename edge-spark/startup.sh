@@ -2,7 +2,7 @@
 
 # Cargar variables de entorno hacia en env.sh
 if [ ! -f /etc/profile.d/env.sh ]; then
-    export SPARK_DIST_CLASSPATH=$(hadoop classpath)
+    #export SPARK_DIST_CLASSPATH=$(hadoop classpath)
     export -p | sed -E 's/^declare -x /export /' > /etc/profile.d/env.sh
     chmod 644 /etc/profile.d/env.sh
 fi
