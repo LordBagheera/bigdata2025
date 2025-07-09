@@ -5,8 +5,8 @@ LABEL title="BDSA - Big Data South America - Inspired on BDE2020"
 
 ENV BASE_URL=https://downloads.apache.org/spark
 ENV SPARK_VERSION=3.5.6
-ENV HIVE_VERSION=4.0.1
-ENV HIVE_URL https://downloads.apache.org/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
+ENV HIVE_VERSION=2.3.9
+ENV HIVE_URL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
 ENV HIVE_HOME=/opt/apache-hive-$HIVE_VERSION-bin
 ENV HIVE_CONF_DIR=/etc/hive
 ENV PATH $HIVE_HOME/bin:$PATH
