@@ -22,3 +22,5 @@ podman build --format docker -t $StackName-historyserver:$tag .\historyserver\
 podman build --format docker -t $StackName-edge-spark:$tag .\edge-spark\
 #build the hive server image
 podman build --format docker -t $StackName-hive:$tag .\hive\
+#build the Nifi server image
+podman build --format docker -t $StackName-nifi:$tag .\nifi\

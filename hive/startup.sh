@@ -8,6 +8,7 @@ hadoop fs -chmod g+w   /user/hive/warehouse
 touch /var/log/hive/hive.log
 /etc/init.d/postgresql start
 hiveserver2 --service metastore &
+sleep 60
 hiveserver2 --service hiveserver2 &
 tail -f /var/log/hive/hive.log
 

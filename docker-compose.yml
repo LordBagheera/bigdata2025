@@ -117,6 +117,7 @@ services:
         condition: on-failure
       labels:
         traefik.docker.network: bigdata_net
+
   historyserver:
     image: bdsa2025/bdsa2025-historyserver:3.4.1
     networks:
@@ -178,7 +179,28 @@ services:
       - 8080:8080
       - 3306:3306
 
-    
+  nifi:
+    image: bdsa2025/bdsa2025-nifi:3.4.1
+    networks:
+      - bigdata_net
+    volumes:
+      - /volumes/nifi/extra_lib:/opt/nifi/extra_lib
+    ports:
+      - 8443:8443
+
+  jupyspark:
+    image: jupyter/all-spark-notebook:latest
+    container_name: jupyspark
+    depends_on: 
+      - hiveserver
+    volumes:
+      - ./volumes/jovyan/conf:/home/jovyan/conf
+      - ./volumes/jovyan/notebooks:/home/jovyan/notebooks
+    ports:
+      - 8888:8888
+    networks:
+      - bigdata_net
+
 networks:
   bigdata_net: 
     driver: bridge
