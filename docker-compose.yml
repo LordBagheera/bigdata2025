@@ -165,9 +165,6 @@ services:
     image: bdsa2025/bdsa2025-hive:3.4.1
     networks:
       - bigdata_net
-    #volumes:
-    #  - /volumes/metastoredb:/var/lib/mysql
-    #  - /hive-log4j2.properties:/etc/hive/hive-log4j2.properties
     environment:
       SERVICE_PRECONDITION: "namenode:9870 resourcemanager:8088"
     env_file:
@@ -204,3 +201,4 @@ services:
 networks:
   bigdata_net: 
     driver: bridge
+    enable_ipv6: false
