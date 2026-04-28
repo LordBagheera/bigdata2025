@@ -3,7 +3,7 @@ FROM bdsa2025/bdsa2025-base:3.4.1
 LABEL authors="Erik Hurtado <erik.hurtado@inacapmail.cl>"
 LABEL title="BDSA - Big Data South America - Inspired on BDE2020"
 
-ENV BASE_URL=https://downloads.apache.org/spark
+ENV BASE_URL=https://archive.apache.org/dist/spark
 ENV SPARK_VERSION=3.5.6
 ENV HIVE_VERSION=2.3.9
 ENV HIVE_URL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
